@@ -1,7 +1,0 @@
-{
-    "host": "management.ccyplmbykom0.ap-northeast-2.rds.amazonaws.com",
-    "user": "user",
-    "password": "no122945",
-    "port": "3306",
-    "database": "management"
-}
