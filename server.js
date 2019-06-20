@@ -24,8 +24,6 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-
-
 app.get('/api/customers', (req, res) => {
     connection.query(
         'SELECT * FROM CUSTOMER WHERE isDeleted = 0',
@@ -57,6 +55,22 @@ app.delete('/api/customers/:id', (req,res) => {
     let sql = 'UPDATE CUSTOMER SET isDeleted = 1 WHERE id = ?';
     let params = [req.params.id];
     connection.query(sql, params,
+        (err, rows, fields) => {
+            res.send(rows);
+        })
+});
+
+app.put('/api/customers/:id', (req, res) => {
+    let sql = 'UPDATE CUSTOMER SET image = ?, name = ?, birthday = ?, gender = ?, job = ? where id = ?';
+    let image = '/image/' + req.file.filename;
+    let name = req.body.name;
+    let birthday = req.body.birthday;
+    let gender = req.body.gender;
+    let job = req.body.job;
+    let id = req.body.id;
+    let params = [image, name, birthday, gender, job, id];
+
+    connection.query(sql, params, 
         (err, rows, fields) => {
             res.send(rows);
         })
